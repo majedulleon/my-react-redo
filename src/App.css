@@ -6,3 +6,8 @@
   border: 1px solid red;
   background: #9c9999;
 }
+
+.block {
+  border: 2px solid blue;
+  border-style: dotted;
+}
