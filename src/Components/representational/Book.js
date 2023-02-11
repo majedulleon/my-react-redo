@@ -1,6 +1,7 @@
 import React from "react";
 
 let Book = (props) => {
+    console.log("From Book");
     return (
         <div className="container">
             <div className="block">
