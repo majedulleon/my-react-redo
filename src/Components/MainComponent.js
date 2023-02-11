@@ -35,13 +35,32 @@ class MainComponent extends Component {
     togglebooks = () => {
         this.setState({ showBooks: !this.state.showBooks })
     }
-    componentWillMount() {
+    UNSAFE_componentWillMount() {
         console.log("MainComponent WillMount");
     }
 
     componentDidMount() {
         console.log("MainComponent DidMount");
     }
+
+    shouldComponentUpdate(nextProps, nextState) {
+        console.log("U MainComponent ShouldcomponentUpdate", nextProps, nextState);
+        return true;
+    }
+
+    UNSAFE_componentWillUpdate(nextProps, nextState) {
+        console.log("U MainComponent ComponentwillUpdate");
+    }
+
+    componentDidUpdate() {
+        console.log("U Maincomponent componentDidupdate");
+    }
+
+    static getDerivedStateFromProps(nextProps, prevState) {
+        console.log("MainComponent getDerivedStateFromProps", nextProps, prevState);
+        return prevState;
+    }
+
 
     render() {
 
