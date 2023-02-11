@@ -1,6 +1,7 @@
 import React, { Component } from "react";
 import booklists from "../assets/booklists";
 import BookList from "./lists/BookList";
+import NewBook from "./representational/NewBook";
 
 class MainComponent extends Component {
 
@@ -10,10 +11,7 @@ class MainComponent extends Component {
             book: booklists,
             showBooks: true
         }
-        console.log("MainComponent class CalleD");
     }
-
-
 
     changeWithInput = (event, index) => {
         let books = { ...this.state.book[index] }
@@ -35,36 +33,8 @@ class MainComponent extends Component {
     togglebooks = () => {
         this.setState({ showBooks: !this.state.showBooks })
     }
-    UNSAFE_componentWillMount() {
-        console.log("MainComponent WillMount");
-    }
-
-    componentDidMount() {
-        console.log("MainComponent DidMount");
-    }
-
-    shouldComponentUpdate(nextProps, nextState) {
-        console.log("U MainComponent ShouldcomponentUpdate", nextProps, nextState);
-        return true;
-    }
-
-    UNSAFE_componentWillUpdate(nextProps, nextState) {
-        console.log("U MainComponent ComponentwillUpdate");
-    }
-
-    componentDidUpdate() {
-        console.log("U Maincomponent componentDidupdate");
-    }
-
-    static getDerivedStateFromProps(nextProps, prevState) {
-        console.log("MainComponent getDerivedStateFromProps", nextProps, prevState);
-        return prevState;
-    }
-
 
     render() {
-
-        console.log("Render Called");
 
         //Very Confusing 4 M3
         let books = null;
@@ -77,9 +47,17 @@ class MainComponent extends Component {
 
         return (
             <div className='App'>
+                <div className="nav-bar">
+                    <ul>
+                        <li><a href="/" />Home</li>
+                        <li><a href="/new" />NeW BooK</li>
+                    </ul>
+                </div>
+
                 <h1 className='title'>Book List :-</h1>
                 <button onClick={this.togglebooks}>Toggle ButtoN</button>
                 {books}
+                <NewBook />
             </div>
         );
     }
