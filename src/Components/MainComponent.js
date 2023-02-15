@@ -2,14 +2,16 @@ import React, { Component } from "react";
 import booklists from "../assets/booklists";
 import BookList from "./lists/BookList";
 import NewBook from "./representational/NewBook";
+import { Route } from 'react-router-dom';
+
 
 class MainComponent extends Component {
 
     constructor(props) {
         super(props);
         this.state = {
-            book: booklists,
-            showBooks: true
+            book: booklists
+
         }
     }
 
@@ -30,35 +32,30 @@ class MainComponent extends Component {
         });
     }
 
-    togglebooks = () => {
-        this.setState({ showBooks: !this.state.showBooks })
-    }
 
     render() {
 
-        //Very Confusing 4 M3
-        let books = null;
-        if (this.state.showBooks) {
-            books = <BookList book={this.state.book}
-                deleteBookstate={this.deleteBookstate}
-                changeWithInput={this.changeWithInput} />
-        }
+        let books = <BookList book={this.state.book}
+            deleteBookstate={this.deleteBookstate}
+            changeWithInput={this.changeWithInput} />
+
 
 
         return (
-            <div className='App'>
+            <div className='App' >
                 <div className="nav-bar">
                     <ul>
-                        <li><a href="/" />Home</li>
-                        <li><a href="/new" />NeW BooK</li>
+                        <li><a href="/">Home</a></li>
+                        <li><a href="/new-book">NeW BooK</a></li>
                     </ul>
                 </div>
 
-                <h1 className='title'>Book List :-</h1>
-                <button onClick={this.togglebooks}>Toggle ButtoN</button>
-                {books}
-                <NewBook />
-            </div>
+                <Route path="/" exact render={() => books} />
+                <Route path="/new-book" exact render={() => <NewBook />} />
+
+            </div >
+
+
         );
     }
 
