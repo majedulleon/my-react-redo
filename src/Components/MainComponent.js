@@ -2,7 +2,7 @@ import React, { Component } from "react";
 import booklists from "../assets/booklists";
 import BookList from "./lists/BookList";
 import NewBook from "./representational/NewBook";
-import { Route } from 'react-router-dom';
+import { Route, NavLink } from 'react-router-dom';
 
 
 class MainComponent extends Component {
@@ -43,15 +43,15 @@ class MainComponent extends Component {
 
         return (
             <div className='App' >
-                <div className="nav-bar">
+                <nav className="nav-bar">
                     <ul>
-                        <li><a href="/">Home</a></li>
-                        <li><a href="/new-book">NeW BooK</a></li>
+                        <li><NavLink to="/" exact>Home</NavLink></li>
+                        <li><NavLink to="/new-book">New Book</NavLink></li>
                     </ul>
-                </div>
+                </nav>
 
                 <Route path="/" exact render={() => books} />
-                <Route path="/new-book" exact render={() => <NewBook />} />
+                <Route path="/new-book" exact component={NewBook} />
 
             </div >
 
