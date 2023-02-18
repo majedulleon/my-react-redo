@@ -1,8 +1,9 @@
 import React, { Component } from "react";
-import booklists from "../assets/booklists";
+import book from "../assets/book";
 import BookList from "./lists/BookList";
 import NewBook from "./representational/NewBook";
-import { Route, NavLink } from 'react-router-dom';
+import BookDetail from "./representational/BookDetail";
+import { Route, NavLink, Switch, Redirect } from 'react-router-dom';
 
 
 class MainComponent extends Component {
@@ -10,36 +11,22 @@ class MainComponent extends Component {
     constructor(props) {
         super(props);
         this.state = {
-            book: booklists
-
+            book: book,
+            selectedBook: null
         }
     }
 
-    changeWithInput = (event, index) => {
-        let books = { ...this.state.book[index] }
-        books.bookName = event.target.value;
-
-        let book = [...this.state.book];
-        book[index] = books;
-        this.setState({ book: book });  //Tricky
-    }
-
-    deleteBookstate = (index) => {
-        let books = this.state.book;
-        books.splice(index, 1);
+    selectedBookHandler = (bookId) => {
+        let book = this.state.book.filter((book) => book.id === bookId)[0];
         this.setState({
-            books: books
-        });
+            selectedBook: book
+        })
     }
-
 
     render() {
 
         let books = <BookList book={this.state.book}
-            deleteBookstate={this.deleteBookstate}
-            changeWithInput={this.changeWithInput} />
-
-
+            selectedBookHandler={this.selectedBookHandler} />
 
         return (
             <div className='App' >
@@ -49,10 +36,12 @@ class MainComponent extends Component {
                         <li><NavLink to="/new-book">New Book</NavLink></li>
                     </ul>
                 </nav>
-
-                <Route path="/" exact render={() => books} />
-                <Route path="/new-book" exact component={NewBook} />
-
+                <Switch>
+                    <Route path="/" exact render={() => books} />
+                    <Route path="/new-book" exact component={NewBook} />
+                    <Route path="/:id" render={() => <BookDetail book={this.state.selectedBook} />} />
+                    <Redirect from="/" to="/new-book" />
+                </Switch>
             </div >
 
 

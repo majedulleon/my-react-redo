@@ -1,19 +1,21 @@
 import React, { Component } from "react";
 import Book from "../representational/Book";
+import { Link } from "react-router-dom";
 
 class BookList extends Component {
-    constructor(props) {
-        super(props);
-    }
 
     render() {
 
         return (
             this.props.book.map((book, index) => {
                 return (
-                    <Book bookName={book.bookName} writter={book.writter}
-                        delete={() => this.props.deleteBookstate(index)} key={index}
-                        inputName={(event) => this.props.changeWithInput(event, index)} />
+                    <Link to={"/" + book.id} key={book.id}
+                        style={{ textDecoration: "none", color: "black" }}>
+                        <Book bookName={book.bookName}
+                            writter={book.writter}
+                            selectedBookHandler={() => this.props.selectedBookHandler(book.id)} />
+                    </Link>
+
                 );
             })
         );
